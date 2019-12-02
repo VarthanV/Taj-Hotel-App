@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:taj_app/pages/customers/customerDetailView.dart';
 
 import '../blocs/generalinfo.dart';
 import './items/additem.dart';
 import 'items/deleteitem.dart';
-import 'items/edititem.dart';
 import 'items/viewItem.dart';
 
 class HomePage extends StatefulWidget {
@@ -67,6 +67,16 @@ class _HomePageState extends State<HomePage> {
                 setState(() {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (ctx) => ViewItem()));
+                });
+              },
+            ),
+             ListTile(
+              title: Text("Customers",
+                  style: TextStyle(fontFamily: fontFamily, fontSize: 20.0)),
+              onTap: () {
+                setState(() {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (ctx) => CustomerView()));
                 });
               },
             ),
