@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:taj_app/blocs/generalinfo.dart';
 import 'package:http/http.dart' as http;
-import 'package:taj_app/blocs/generalinfo.dart' as prefix0;
+
 import 'package:taj_app/pages/items/edititem.dart';
 
 var _items = [];
@@ -16,7 +16,7 @@ class ViewItem extends StatefulWidget {
 
 class _ViewItemState extends State<ViewItem> {
   getItems() {
-    http.get( url +'items/').then((response) {
+    http.get(url + 'items/').then((response) {
       print(jsonDecode(response.body));
       if (response.statusCode == 200) {
         setState(() {
@@ -75,20 +75,37 @@ class _ViewItemState extends State<ViewItem> {
             ListView(
               shrinkWrap: true,
               children: <Widget>[
-
-                Container(
-                  alignment: Alignment.topLeft,
-                  child:RaisedButton(
-                    child: Text("Edit",style:TextStyle(fontFamily: fontFamily)),
-                    onPressed: (){
-                      setState(() {
-                        Navigator.push(
-                          context,MaterialPageRoute(
-                            builder: (ctx) =>EditItem(item, item['subitems'], item['name'])
-                          ));
-                      });
-                    },
-                  ) ,
+                Row(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.only(left: 8.0),
+                      alignment: Alignment.topLeft,
+                      child: RaisedButton(
+                        color: Colors.blue,
+                        child: Text("Edit",
+                            style: TextStyle(fontFamily: fontFamily)),
+                        onPressed: () {
+                          setState(() {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (ctx) => EditItem(
+                                        item, item['subitems'], item['name'])));
+                          });
+                        },
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 8.0),
+                      alignment: Alignment.topLeft,
+                      child: RaisedButton(
+                        color: Colors.blue,
+                        child: Text("Delete",
+                            style: TextStyle(fontFamily: fontFamily)),
+                        onPressed: () {},
+                      ),
+                    ),
+                  ],
                 ),
                 Container(
                   alignment: Alignment.topLeft,
