@@ -26,6 +26,17 @@ class _ViewItemState extends State<ViewItem> {
     });
   }
 
+  deleteItem(var pk) {
+    http.post(url + 'delete/' + pk + '/').then((resp) {
+      if (resp.statusCode == 200) {
+        setState(() {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (ctx) => ViewItem()));
+        });
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -102,7 +113,9 @@ class _ViewItemState extends State<ViewItem> {
                         color: Colors.blue,
                         child: Text("Delete",
                             style: TextStyle(fontFamily: fontFamily)),
-                        onPressed: () {},
+                        onPressed: () {
+                          deleteItem(item['pk']);
+                        },
                       ),
                     ),
                   ],
