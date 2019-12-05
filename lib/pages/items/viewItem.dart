@@ -27,7 +27,7 @@ class _ViewItemState extends State<ViewItem> {
   }
 
   deleteItem(var pk) {
-    http.post(url + 'delete/' + pk + '/').then((resp) {
+    http.patch(url + 'items/', body: {'pk': int.parse(pk)}).then((resp) {
       if (resp.statusCode == 200) {
         setState(() {
           Navigator.pushReplacement(
@@ -101,7 +101,10 @@ class _ViewItemState extends State<ViewItem> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (ctx) => EditItem(
-                                        item, item['subitems'], item['name'])));
+                                        item,
+                                        item['subitems'],
+                                        item['name'],
+                                        item['pk'])));
                           });
                         },
                       ),

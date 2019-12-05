@@ -4,11 +4,11 @@ import 'package:http/http.dart' as http;
 import 'package:taj_app/pages/homepage.dart';
 
 class EditItem extends StatefulWidget {
-  Map _items;
-  List _subItems;
-  var _name;
-  String pk;
-  EditItem(this._items, this._subItems, this._name);
+ final  Map _items;
+  final List _subItems;
+  final  _name;
+  final String pk;
+  EditItem(this._items, this._subItems, this._name,this.pk);
 
   @override
   _EditItemState createState() => _EditItemState();
@@ -24,8 +24,8 @@ class _EditItemState extends State<EditItem> {
       isLoading = true;
     });
 
-    http.post(url + 'edit/' + widget.pk + '/',
-        body: {'items': items, 'subitems': subItems}).then((resp) {
+    http.put(url + 'items/',
+        body: { 'pk':int.parse(widget.pk), 'name':items['name'],'price': int.parse(items['price']), 'quantity':int.parse(items['quantity']) ,'subitems': subItems}).then((resp) {
           if(resp.statusCode ==200){
             setState(() {
               Navigator.pushReplacement(context,
@@ -53,7 +53,9 @@ class _EditItemState extends State<EditItem> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
+                  
                     decoration: InputDecoration(
+                    
                         hintText: subItems[i]['name'], hintStyle: style),
                     onChanged: (value) {
                       subItems[i]['name'] = value;
@@ -93,12 +95,7 @@ class _EditItemState extends State<EditItem> {
 
   @override
   Widget build(BuildContext context) {
-    @override
-    void initState() {
-      super.initState();
-      print(widget._items);
-      print(widget._subItems);
-    }
+   
 
     Map _itemsMap = widget._items;
     List _subitemsList = widget._subItems;
